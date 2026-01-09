@@ -47,7 +47,7 @@ export default function CompanyDetails({ company, setCompany }) {
             <input
               id="company-name"
               type="text"
-              maxLength={120}
+              maxLength={60}
               className="input border p-2 rounded-sm indent-1 w-[90%] mt-2 mb-4"
               placeholder="Name"
               value={company.name}
@@ -59,7 +59,7 @@ export default function CompanyDetails({ company, setCompany }) {
             <input
               id="company-address"
               type="text"
-              maxLength={180}
+              maxLength={80}
               className="input border p-2 rounded-sm indent-1 w-[90%] mt-2 mb-4"
               placeholder="Address"
               value={company.address}

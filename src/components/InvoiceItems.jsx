@@ -67,7 +67,7 @@ export default function InvoiceItems({ items, setItems }) {
               type="text"
               className="input col-span-5 border text-indent-1 p-1 rounded-sm text-md description-input"
               placeholder="Description"
-              maxLength={120}
+              maxLength={80}
               value={item.desc}
               onChange={e => updateItem(i, "desc", e.target.value)}
             />
@@ -76,6 +76,7 @@ export default function InvoiceItems({ items, setItems }) {
               type="number"
               className="input col-span-2 border text-indent-1 p-1 rounded-sm text-md"
               value={item.qty}
+              max={1000000}
               onChange={e => updateItem(i, "qty", +e.target.value)}
             />
 
@@ -83,6 +84,7 @@ export default function InvoiceItems({ items, setItems }) {
               type="number"
               className="input col-span-2 border text-indent-1 p-1 rounded-sm text-md"
               value={item.rate}
+              max={1000000000}
               onChange={e => updateItem(i, "rate", +e.target.value)}
             />
 

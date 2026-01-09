@@ -11,7 +11,7 @@ export default function ClientDetails({ client, setClient }) {
           <input
             id="client-name"
             type="text"
-            maxLength={120}
+            maxLength={60}
             className="input border p-2 rounded-sm indent-1 w-[90%] mt-2 mb-4"
             placeholder="Name"
             value={client.name}
@@ -23,7 +23,7 @@ export default function ClientDetails({ client, setClient }) {
           <input
             id="client-address"
             type="text"
-            maxLength={180}
+            maxLength={80}
             className="input border p-2 rounded-sm indent-1 w-[90%] mt-2 mb-4"
             placeholder="Address"
             value={client.address}

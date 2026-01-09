@@ -2,8 +2,9 @@ import html2pdf from 'html2pdf.js';
 
 function InvoicePreview({ company, client, items, taxRate }) {
   const subtotal = items.reduce((s, i) => s + i.qty * i.rate, 0);
+  subtotal.toFixed(2);
   const tax = (subtotal * taxRate) / 100;
-  const total = subtotal + tax;
+  const total = (subtotal + tax).toFixed(2);
   const date = new Date().toISOString().split('T').join('-');
 
   const exportPdf = () => {
@@ -61,19 +62,17 @@ function InvoicePreview({ company, client, items, taxRate }) {
   return (
     <div
       className="bg-white rounded-xl shadow p-6 border-2"
-      style={{ borderColor: company.primaryColor }}
     >
-      <div id="element-to-print" className='hidden md:block bg-white p-[20mm] w-[210mm] min-h-[297mm] shadow-none overflow-visible'>
-        <div className="mb-4 flex items-center justify-between flex-col md:flex-row space-x-4">
-          <div>
+      <div id="element-to-print" className='hidden md:block bg-[#fff] p-[20mm] w-[210mm] min-h-[297mm] shadow-none overflow-visible'>
+        <div className="mb-4 flex items-center justify-between flex-col md:flex-row space-x-4 gap-5">
+          <div className='pr-8'>
             <h2
-              className="text-2xl font-bold"
-              style={{ color: company.primaryColor }}
+              className="text-2xl font-bold mb-2"
             >
               {company.name || "Company Name"}
             </h2>
             <p>{company.address}</p>
-            <p>{company.email}</p>
+            <p className='italic'>{company.email}</p>
             <p>{company.mobile}</p>
             <p className="font-semibold">Tax ID: {company.taxId}</p>
           </div>
@@ -82,47 +81,48 @@ function InvoicePreview({ company, client, items, taxRate }) {
               <img
                 src={company.logo}
                 alt="Company Logo"
-                className="h-24 w-24 object-contain"
+                className="h-48 w-48 object-contain"
               />
             )}
           </div>
         </div>
 
-        <div className="mb-4">
-          <h4 className="font-semibold">Bill To</h4>
+        <div className="my-4">
+          <h3 className="font-semibold border-b border-[#aaa]">Bill To</h3>
+          <br />
           <p>{client.name}</p>
-          <p>{client.address}</p>
-          <p>{client.email}</p>
+          <p className='text-[#444] w-[80%]'>{client.address}</p>
+          <p className='text-[#444] italic'>{client.email}</p>
         </div>
 
-        <table className="w-full text-sm">
+        <table className="table-fixed w-full text-sm">
           <thead>
             <tr className="border-b">
-              <th className="text-left py-2">Description</th>
-              <th>Qty</th>
-              <th>Rate</th>
-              <th className="text-right">Amount</th>
+              <th className="text-left py-2 w-3/6">Description</th>
+              <th className='w-1/6'>Qty</th>
+              <th className='w-1/6'>Rate</th>
+              <th className="text-right w-1/6">Amount</th>
             </tr>
           </thead>
           <tbody>
             {items.map((i, idx) => (
               <tr key={idx} className="border-b">
-                <td className="py-2">{i.desc}</td>
-                <td className="text-center">{i.qty}</td>
-                <td className="text-center">₹ {i.rate}</td>
-                <td className="text-right">₹ {i.qty * i.rate}</td>
+                <td className="py-2 w-3/6">{i.desc}</td>
+                <td className="text-center w-1/6">{i.qty}</td>
+                <td className="text-right w-1/6">₹ {i.rate}</td>
+                <td className="text-right w-1/6">₹ {i.qty * i.rate}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <div className="mt-4 text-right space-y-1">
+        <div className="mt-7 text-right space-y-1">
           <p>Subtotal: ₹ {subtotal}</p>
           <p>Tax ({taxRate}%): ₹ {tax}</p>
           <p className="text-xl font-bold">Total: ₹ {total}</p>
         </div>
 
-        <div className='mt-5 h-8 w-full text-[#aaa] border-t border-[#aaa] italic text-md text-center'>Powered by Invoify</div>
+        <div className='mt-7 h-8 w-full text-[#aaa] border-t border-[#aaa] italic text-md text-center'>Powered by Invoify</div>
       </div>
 
       <div className="md:hidden text-slate-500 text-center font-semibold mb-2 text-lg"> Invoice preview is not enabled for mobile devices </div>
